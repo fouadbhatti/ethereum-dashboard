@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="wallet">
+    <meta name="author" content="fouad bhatti">
+    <link rel="icon" href="favicon.ico">
+    <title>Dashboard Template for Bootstrap</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link href="css/dashboard.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/cryptocoins/webfont/cryptocoins.css">
+    <link rel="stylesheet" href="css/cryptocoins/webfont/cryptocoins-colors.css">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i">
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
+    <a class="navbar-brand" href="#">Crypto-Wallet</a>
+</nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-sm-3 col-md-2 d-none d-sm-block bg-light sidebar">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Overview <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Reports</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Analytics</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Export</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nav item</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nav item again</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">One more nav</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Another nav item</a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nav item again</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">One more nav</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Another nav item</a>
+                </li>
+            </ul>
+        </nav>
+
+        <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+            <section class="row text-center placeholders">
+                <div class="card w-100 mx-4 text-left">
+                    <div class="card-body">
+                        <h4 class="card-title mt-0">Overview</h4>
+                        <p class="card-text">Your ERC-20 Tokens Summary</p>
+                        <div id="summaryBalances">
+
+                        </div>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAddress">
+                            Launch demo modal
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="addAddress" tabindex="-1" role="dialog" aria-labelledby="addAddressLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add ERC-20 Wallet Address</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="walletName">Name</label>
+                    <input type="text" class="form-control" id="walletName" placeholder="Enter wallet name">
+                </div>
+                <br>
+                <div class="form-group">
+                    <label for="walletAddress">Address</label>
+                    <input type="email" class="form-control" id="walletAddress"  placeholder="Enter wallet address">
+                    <small id="walletAddressHelp" class="form-text text-muted">Your address is safe with you, nothing is stored with us, similar to <a href="https://myetherwallet.com/" target="_blank">MyEtherwallet</a></small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button id="save" type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/vendor/jquery.min.js"></script>
+<script src="js/vendor/popper.min.js"></script>
+<script src="js/vendor/lodash.min.js"></script>
+<script src="js/vendor/rxjs5.min.js"></script>
+<script src="js/vendor/bootstrap.min.js"></script>
+<script src="js/config.js"></script>
+<script src="js/utils.js"></script>
+<script src="js/storage.js"></script>
+<script src="js/settings.js"></script>
+<script src="js/wallets.js"></script>
+<script src="js/core.js"></script>
+
+<script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+</body>
+</html>
