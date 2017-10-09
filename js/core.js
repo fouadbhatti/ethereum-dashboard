@@ -92,7 +92,8 @@ class Core {
 		).join('')}`;
 	}
 
-	renderWalletDetails(list) {
+	renderWalletDetails(_list) {
+		let list = _.cloneDeep(_list);
 		let filteredList = list.filter(b => !_.property('error')(b));
 		let errorList = list.filter(b => !!_.property('error')(b));
 
