@@ -36,7 +36,6 @@ class Core {
 		})
 		.subscribe(address => {
 			let removed = Settings.removeWallet(address);
-			console.log(removed);
 			this.renderView();
 		});
 	}
