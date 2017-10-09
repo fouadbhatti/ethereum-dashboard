@@ -58,6 +58,7 @@ class Core {
 				this.renderSummaryView(summary);
 				this.renderWalletDetails(list);
 				this.registerRemoveWallet();
+				myWallets.onWalletEdit();
 			});
 	}
 
@@ -108,6 +109,9 @@ class Core {
 	              <button type="button" class="close remove-wallet" aria-label="Close">
 								  <span aria-hidden="true">&times;</span>
 								</button>
+								<button type="button" class="close edit-wallet mr-1" aria-label="Edit">
+								  <span aria-hidden="true" style="font-size: 19px;">&#9998;</span>
+								</button>
 							</div>
                <h7 class="card-subtitle mb-2 text-muted address-id">${item.address}</h7>
                 <div class="row balances">
@@ -131,6 +135,9 @@ class Core {
 	              <h5 class="card-title mt-0" style="display: inline;">${item.name}</h5>
 	              <button type="button" class="close remove-wallet" aria-label="Close">
 								  <span aria-hidden="true">&times;</span>
+								</button>
+								<button type="button" class="close edit-wallet mr-1" aria-label="Edit">
+								  <span aria-hidden="true" style="font-size: 19px;">&#9998;</span>
 								</button>
 							</div>
 							<h7 class="card-subtitle mb-2 text-muted address-id">${item.address}</h7>

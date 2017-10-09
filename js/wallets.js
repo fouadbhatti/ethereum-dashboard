@@ -27,6 +27,22 @@ class MyWallets {
 				});
 	}
 
+	onWalletEdit() {
+		this.$editWallet = $('.edit-wallet');
+
+		Rx.Observable.fromEvent(this.$editWallet, 'click')
+		.map(e => {
+			let address = $(e.target).closest('.card').find('.address-id').text();
+			return address;
+		})
+		.subscribe(address => {
+			let details = this.fetch(address);
+			this.$walletName.val(details.name);
+			this.$walletAddress.val(details.address);
+			this.$modal.modal('show');
+		});
+	}
+
 	onWalletSaved(cbk) {
 		Rx.Observable.fromEvent(this.$save[0], 'click')
 			.map(() => {
