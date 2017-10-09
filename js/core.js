@@ -41,25 +41,23 @@ class Core {
 	}
 
 	getTokensAndRender(wallets) {
-		this.$infoHeader.text('ERC20 Tokens Summary');
+		this.$infoHeader.text('Tokens Summary');
 		this.$noWallet.hide();
 		this.$summaryBalances.empty().html(`<span class="col-sm-12">Loading Blockchain....</span>`).show();
 
 		myWallets.getTokens(wallets)
 			.subscribe((list) => {
-				console.log(list);
 				let summary = this.computeSummary(list);
 				this.renderSummaryView(summary);
 				this.renderWalletDetails(list);
-				console.log(summary);
-
 				this.registerRemoveWallet();
 			});
 	}
 
 	computeSummary(list) {
 		// As we are changing inside wallets array thus need to cloneDeep.
-		let wallets = _.cloneDeep(list);
+		//let wallets = _.cloneDeep(list);
+		let wallets = list.filter(b => !_.property('error')(b));
 
 		return wallets.reduce((totalTokenSummary, wallet) => {
 			let tokens = wallet.tokens;
@@ -87,8 +85,12 @@ class Core {
 	}
 
 	renderWalletDetails(list) {
-		let details = `
-			${list.map(item => `
+		let filteredList = list.filter(b => !_.property('error')(b));
+		let errorList = list.filter(b => !!_.property('error')(b));
+
+		if (filteredList.length > 0) {
+			let details = `
+			${filteredList.map(item => `
 				<div class="col-lg-4 mt-5 pr-2 pl-2">
 					<div class="card">
             <div class="card-body">
@@ -107,8 +109,34 @@ class Core {
       	</div>
 			`).join('')}
 		`;
+			this.$walletDetails.empty().append(details);
+		}
 
-		this.$walletDetails.empty().append(details);
+		if (errorList.length > 0) {
+			let errorDetails = `
+			${errorList.map(item => `
+				<div class="col-lg-4 mt-5 pr-2 pl-2">
+					<div class="card">
+            <div class="card-body">
+            	<div>
+	              <h5 class="card-title mt-0" style="display: inline;">${item.name}</h5>
+	              <button type="button" class="close remove-wallet" aria-label="Close">
+								  <span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<h7 class="card-subtitle mb-2 text-muted address-id">${item.address}</h7>
+							<div class="row balances">
+								<span class="col-sm-4 col-6 mt-4">
+                   <div class="text-center text-danger">${item.error.message}</div>
+                </span>
+               </div>
+            </div>
+          </div>
+      	</div>
+			`).join('')}
+		`;
+			this.$walletDetails.append(errorDetails);
+		}
 	}
 
 	renderSummaryView(summary) {

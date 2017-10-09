@@ -17,10 +17,10 @@ class MyWallets {
 					});
 					return Rx.Observable.forkJoin(queryAddressDetails$);
 				})
-				.map(wallets => {
-					// Drop any failed responses from response array
-					return wallets.filter(b => !_.property('error')(b));
-				})
+				// .map(wallets => {
+				// 	// Drop any failed responses from response array
+				// 	return wallets.filter(b => !_.property('error')(b));
+				// })
 					// Don't move further if all our requests have been failed
 				.filter(wallets => {
 					return wallets.length > 0;

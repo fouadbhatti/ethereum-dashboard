@@ -54,11 +54,17 @@ class Api {
 		})
 		.catch(e => {
 			return Rx.Observable.of({
-				error: true
+				error: true,
+				name,
+				address
 			});
 		})
 		.map(res => {
-			if (!!_.property('error')(res)) return res;
+			if (!!_.property('error')(res)) {
+				res.name = name;
+				res.address = address;
+				return res;
+			}
 			return this.mapResponse(name, address, res)
 		})
 	}
