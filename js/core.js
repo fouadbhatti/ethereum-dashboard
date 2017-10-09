@@ -12,6 +12,11 @@ class Core {
 		this.renderView();
 	}
 
+	clearState() {
+		this.$summaryBalances.empty();
+		this.$walletDetails.empty();
+	}
+
 	renderView() {
 		let wallets = myWallets.fetch();
 		if (wallets.length === 0) {
@@ -37,6 +42,7 @@ class Core {
 	}
 
 	noWallets() {
+		this.clearState();
 		this.$noWallet.show();
 		this.$infoHeader.html(`This is a Free, open-source, client-side interface for Ethereum wallet dashboard that shows, 
 			in depth balance and summary of your all your Ethereum & ERC-20 tokens.<br> <b>To get started just add all your Ethereum wallet public keys and see the magic.</b>`)
