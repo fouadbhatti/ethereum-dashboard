@@ -64,8 +64,8 @@ class Core {
 
 	computeSummary(list) {
 		// As we are changing inside wallets array thus need to cloneDeep.
-		//let wallets = _.cloneDeep(list);
-		let wallets = list.filter(b => !_.property('error')(b));
+		let wallets = _.cloneDeep(list);
+		wallets = wallets.filter(b => !_.property('error')(b));
 
 		return wallets.reduce((totalTokenSummary, wallet) => {
 			let tokens = wallet.tokens;
