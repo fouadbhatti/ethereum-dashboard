@@ -6,17 +6,18 @@ class Core {
 		this.$walletDetails = $('#wallet-details');
 
 		myWallets.onWalletSaved(() => {
-			let wallets = myWallets.fetch();
-			this.getTokensAndRender(wallets);
+			this.renderView();
 		});
 
-		let wallets = myWallets.fetch();
+		this.renderView();
+	}
 
+	renderView() {
+		let wallets = myWallets.fetch();
 		if (wallets.length === 0) {
 			this.noWallets();
 			return;
 		}
-
 		this.getTokensAndRender(wallets);
 	}
 
@@ -31,6 +32,7 @@ class Core {
 		.subscribe(address => {
 			let removed = Settings.removeWallet(address);
 			console.log(removed);
+			this.renderView();
 		});
 	}
 
@@ -88,6 +90,8 @@ class Core {
 		let filteredList = list.filter(b => !_.property('error')(b));
 		let errorList = list.filter(b => !!_.property('error')(b));
 
+		this.$walletDetails.empty();
+
 		if (filteredList.length > 0) {
 			let details = `
 			${filteredList.map(item => `
@@ -109,7 +113,7 @@ class Core {
       	</div>
 			`).join('')}
 		`;
-			this.$walletDetails.empty().append(details);
+			this.$walletDetails.append(details);
 		}
 
 		if (errorList.length > 0) {
@@ -126,9 +130,9 @@ class Core {
 							</div>
 							<h7 class="card-subtitle mb-2 text-muted address-id">${item.address}</h7>
 							<div class="row balances">
-								<span class="col-sm-4 col-6 mt-4">
-                   <div class="text-center text-danger">${item.error.message}</div>
-                </span>
+								<div class="col-sm-12 mt-4 text-center text-danger">
+                   ${item.error.message}
+                </div>
                </div>
             </div>
           </div>
