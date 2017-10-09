@@ -44,7 +44,7 @@ class Core {
 		this.clearState();
 		this.$noWallet.show();
 		this.$infoHeader.html(`This is a free, open-source, client-side interface for Ethereum wallet dashboard that shows, 
-			in depth balance and summary of your all your Ethereum & ERC-20 tokens.<br> <b>To get started just add all your Ethereum wallet public address and see the magic.</b>`)
+			in depth balance and summary of all your added wallets, without the hassle of opening every wallet and seeing balances.<br><br> <b>To get started just add your public wallet addresses.</b>`)
 	}
 
 	getTokensAndRender(wallets) {
