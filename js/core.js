@@ -86,7 +86,7 @@ class Core {
 		return `
 			${tokens.map(token => `<span class="col-sm-4 col-6 mt-4">
                           <div class="text-center token-label">${token.symbol}</div>
-                           <div class="mt-1 text-center">${Utils.roundOff(token.balance)}</div>
+                           <div class="mt-1 text-center">${Utils.roundOff(token.balance, true)}</div>
                         </span>`
 		).join('')}`;
 	}
@@ -154,7 +154,7 @@ class Core {
 		if (summary.length > 0) {
 			for (let token of summary) {
 				if (token.balance >= 0.00001) {
-					let balance = Utils.roundOff(token.balance);
+					let balance = Utils.roundOff(token.balance, true);
 					let className = `cc ${token.symbol} pr-2`;
 					$summaryBalances.append(`<span class="col-sm-4 col-lg-3 col-xl-2 col-6 mt-4"><i class="${className}"></i>${balance} ${token.symbol}</span>`);
 					const icon = $summaryBalances[0].getElementsByClassName(className)[0];
