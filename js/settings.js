@@ -16,4 +16,8 @@ class Settings {
 			address
 		});
 	}
+
+	static removeWallet(address) {
+		Storage.pop('erc-20-wallets', { address });
+	}
 }

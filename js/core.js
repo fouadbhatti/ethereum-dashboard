@@ -3,6 +3,7 @@ class Core {
 		this.$infoHeader = $('#info-header');
 		this.$noWallet = $('#no-wallets-empty');
 		this.$summaryBalances = $('#summaryBalances');
+		this.$walletDetails = $('#wallet-details');
 
 		myWallets.onWalletSaved(() => {
 			let wallets = myWallets.fetch();
@@ -19,6 +20,20 @@ class Core {
 		this.getTokensAndRender(wallets);
 	}
 
+	registerRemoveWallet() {
+		this.$removeWallet = $('.remove-wallet');
+
+		Rx.Observable.fromEvent(this.$removeWallet, 'click')
+		.map(e => {
+			let address = $(e.target).closest('.card').find('.address-id').text();
+			return address;
+		})
+		.subscribe(address => {
+			let removed = Settings.removeWallet(address);
+			console.log(removed);
+		});
+	}
+
 	noWallets() {
 		this.$noWallet.show();
 		this.$infoHeader.html(`This is a Free, open-source, client-side interface for Ethereum wallet dashboard that shows, 
@@ -28,14 +43,17 @@ class Core {
 	getTokensAndRender(wallets) {
 		this.$infoHeader.text('ERC20 Tokens Summary');
 		this.$noWallet.hide();
-		this.$summaryBalances.empty().text(`Loading Blockchain.....`).show();
+		this.$summaryBalances.empty().html(`<span class="col-sm-12">Loading Blockchain....</span>`).show();
 
 		myWallets.getTokens(wallets)
 			.subscribe((list) => {
 				console.log(list);
 				let summary = this.computeSummary(list);
 				this.renderSummaryView(summary);
-				console.log(summary)
+				this.renderWalletDetails(list);
+				console.log(summary);
+
+				this.registerRemoveWallet();
 			});
 	}
 
@@ -58,7 +76,40 @@ class Core {
 		}, [])
 	}
 
-	renderWalletDetails
+	renderTokens(tokens) {
+		//<i class="align-middle pr-2 cc ${token.symbol}"></i>
+		return `
+			${tokens.map(token => `<span class="col-sm-4 col-6 mt-4">
+                          <div class="text-center token-label">${token.symbol}</div>
+                           <div class="mt-1 text-center">${Utils.roundOff(token.balance)}</div>
+                        </span>`
+		).join('')}`;
+	}
+
+	renderWalletDetails(list) {
+		let details = `
+			${list.map(item => `
+				<div class="col-lg-4 mt-5 pr-2 pl-2">
+					<div class="card">
+            <div class="card-body">
+            	<div>
+	              <h5 class="card-title mt-0" style="display: inline;">${item.name}</h5>
+	              <button type="button" class="close remove-wallet" aria-label="Close">
+								  <span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+               <h7 class="card-subtitle mb-2 text-muted address-id">${item.address}</h7>
+                <div class="row balances">
+									${this.renderTokens(item.tokens)}
+                 </div>
+            </div>
+          </div>
+      	</div>
+			`).join('')}
+		`;
+
+		this.$walletDetails.empty().append(details);
+	}
 
 	renderSummaryView(summary) {
 		const $summaryBalances = this.$summaryBalances;

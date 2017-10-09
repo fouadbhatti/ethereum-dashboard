@@ -17,6 +17,10 @@ h1 {
     border-bottom: 1px solid #eee;
 }
 
+button {
+    cursor: pointer;
+}
+
 /*
  * Sidebar
  */
@@ -90,4 +94,8 @@ h1 {
 
 .cc {
     font-size: 25px;
+}
+
+.token-label {
+    font-weight: bold;background: #000;color: #fff;
 }

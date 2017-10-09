@@ -3,13 +3,13 @@ class Storage {
 
 	static push(name, value, key = 'address') {
 		let array = this.get(name, []);
-		let isRecordPresent = _.findIndex(array, item => item[key] == value[key]) !== -1;
-		if (!isRecordPresent) {
+		let isRecordPresentIndex = _.findIndex(array, item => item[key] == value[key]);
+		if (isRecordPresentIndex === -1) {
 			array.push(value);
 			this.set(name, array);
 			return 'record added';
 		} else {
-			array[isRecordPresent] = value;
+			array[isRecordPresentIndex] = value;
 			this.set(name, array);
 			return 'record updated'	;
 		}
@@ -17,10 +17,12 @@ class Storage {
 
 	static pop(name, value, key = 'address') {
 		let array = this.get(name, []);
-		let isRecordPresent = _.findIndex(array, item => item[key] == value[key]) !== -1;
+		let isRecordPresentIndex = _.findIndex(array, item => {
+			return item[key] == value[key];
+		});
 
-		if (isRecordPresent) {
-			array.splice(isRecordPresent, 1);
+		if (isRecordPresentIndex !== -1) {
+			array.splice(isRecordPresentIndex, 1);
 			this.set(name, array);
 			return true;
 		} else {

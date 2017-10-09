@@ -1,5 +1,5 @@
 class Api {
-	static mapEthExplorerRes(name, res) {
+	static mapEthExplorerRes(name, address, res) {
 		if (!_.property('tokens')(res)) {
 			let tokens = [];
 			if (res.ETH.balance !== 0) {
@@ -10,7 +10,7 @@ class Api {
 			}
 
 			return {
-				address: res.address,
+				address,
 				tokens,
 				name
 			};
@@ -34,14 +34,14 @@ class Api {
 		}
 
 		return {
-			address: res.address,
+			address,
 			tokens,
 			name
 		}
 	}
 
-	static mapResponse(name, res) {
-		return this.mapEthExplorerRes(name, res);
+	static mapResponse(name, address, res) {
+		return this.mapEthExplorerRes(name, address, res);
 	}
 
 	static getAddressDetails(name, address) {
@@ -59,7 +59,7 @@ class Api {
 		})
 		.map(res => {
 			if (!!_.property('error')(res)) return res;
-			return this.mapResponse(name, res)
+			return this.mapResponse(name, address, res)
 		})
 	}
 }
