@@ -1,4 +1,4 @@
-class Api {
+class   Api {
 	static mapEthExplorerRes(name, address, res) {
 		if (!_.property('tokens')(res)) {
 			let tokens = [];

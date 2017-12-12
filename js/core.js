@@ -10,6 +10,11 @@ class Core {
 		});
 
 		this.renderView();
+
+		CmcTicker.getTicker()
+			.subscribe(x => {
+				console.log(x);
+		});
 	}
 
 	clearState() {
@@ -163,13 +168,35 @@ class Core {
 			for (let token of summary) {
 				if (token.balance >= 0.00001) {
 					let balance = Utils.roundOff(token.balance, true);
-					let className = `cc ${token.symbol} pr-2`;
-					$summaryBalances.append(`<span class="col-sm-4 col-lg-3 col-xl-2 col-6 mt-4"><i class="${className}"></i>${balance} ${token.symbol}</span>`);
-					const icon = $summaryBalances[0].getElementsByClassName(className)[0];
+					if (!!token.details) {
+						let logoUrl = `${Config.cmcIcons}${token.details.id}.png`;
+						let priceUsd = token.details.price_usd;
+						let percentageChange = token.details.percent_change_24h;
+						let color = percentageChange ? percentageChange.indexOf('-') >= 0 ? 'text-danger': 'text-success' : '';
 
-					const psudeo = window.getComputedStyle(icon, ':before').getPropertyValue('content');
-					if (!psudeo) {
-						$(icon).removeClass(token.symbol).addClass('BTC-alt');
+						let total = "";
+						if (priceUsd) {
+							total = (parseFloat(priceUsd) * balance);
+							total = Utils.nFormatter(total);
+						}
+
+						$summaryBalances.append(`
+							<span class="col-sm-4 col-lg-3 col-xl-2 col-6 mt-4">
+								<img src="${logoUrl}" class="crypo-logo">
+								<div>$${total}</div>
+								<div>${balance} ${token.symbol}</div>
+								<div class="details"><span class="text-primary">$${priceUsd}</span>&nbsp;<span class="${color}">${percentageChange || 'NA'}%</span></div>
+							</span>`);
+					} else {
+						// Legacy handling
+						let className = `cc ${token.symbol} pr-2`;
+						$summaryBalances.append(`<span class="col-sm-4 col-lg-3 col-xl-2 col-6 mt-4"><i class="${className}"></i>${balance} ${token.symbol}</span>`);
+						const icon = $summaryBalances[0].getElementsByClassName(className)[0];
+
+						const psudeo = window.getComputedStyle(icon, ':before').getPropertyValue('content');
+						if (!psudeo) {
+							$(icon).removeClass(token.symbol).addClass('BTC-alt');
+						}
 					}
 				}
 			}
