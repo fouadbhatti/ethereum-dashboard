@@ -26,22 +26,26 @@ class MyWallets {
 					return wallets.length > 0;
 				})
 				.flatMap((wallets) => {
+
 					let $wallets = Rx.Observable.of(wallets);
 					let $cmcTicker = CmcTicker.getTicker();
 					return Rx.Observable.zip($wallets, $cmcTicker, (wallets, ticker) => {
 						return wallets.map(wallet => {
-								let tokens =  wallet.tokens.map(token => {
-									let details = ticker.find(item => item.symbol.toUpperCase() === token.symbol.toUpperCase());
-									return {
-										...token,
-										details
-									};
-								});
+								if (wallet && wallet.tokens) {
+									let tokens =  wallet.tokens.map(token => {
+										let details = ticker.find(item => item.symbol.toUpperCase() === token.symbol.toUpperCase());
+										return {
+											...token,
+											details
+										};
+									});
 
-								return {
-									...wallet,
-									tokens
+									return {
+										...wallet,
+										tokens
+									}
 								}
+							return wallet;
 						});
 					})
 				});
