@@ -49,9 +49,9 @@ class   Api {
 			method: 'GET',
 			url: `${Config.primary}/${address}?${Config.apiKey}`,
 		})
-		.map(res => {
-			return JSON.parse(res);
-		})
+		// .map(res => {
+		// 	return JSON.parse(res);
+		// })
 		.catch(e => {
 			return Rx.Observable.of({
 				error: true,
