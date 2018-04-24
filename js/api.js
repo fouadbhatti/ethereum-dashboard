@@ -45,27 +45,32 @@ class   Api {
 	}
 
 	static getAddressDetails(name, address) {
-		return Utils.request({
-			method: 'GET',
-			url: `${Config.primary}/${address}?${Config.apiKey}`,
-		})
-		// .map(res => {
-		// 	return JSON.parse(res);
-		// })
-		.catch(e => {
-			return Rx.Observable.of({
-				error: true,
-				name,
-				address
+		let delay = Math.floor(Math.random() * 2001);
+		return Rx.Observable.of(null)
+		.delay(delay)
+		.flatMap(() => {
+			return Utils.request({
+				method: 'GET',
+				url: `${Config.primary}/${address}?${Config.apiKey}`,
+			})
+			// .map(res => {
+			// 	return JSON.parse(res);
+			// })
+			.catch(e => {
+				return Rx.Observable.of({
+					error: true,
+					name,
+					address
+				});
+			})
+			.map(res => {
+				if (!!_.property('error')(res)) {
+					res.name = name;
+					res.address = address;
+					return res;
+				}
+				return this.mapResponse(name, address, res)
 			});
-		})
-		.map(res => {
-			if (!!_.property('error')(res)) {
-				res.name = name;
-				res.address = address;
-				return res;
-			}
-			return this.mapResponse(name, address, res)
-		})
+		});
 	}
 }

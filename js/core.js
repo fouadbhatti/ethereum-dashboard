@@ -161,7 +161,27 @@ class Core {
 		}
 	}
 
-	renderSummaryView(summary) {
+	sortByPriceTotal(list) {
+		let unsorted = list.map((item) => {
+			if (!!item.details) {
+				let balance = Utils.roundOff(item.balance, true);
+				let priceUsd = item.details.price_usd;
+				if (priceUsd) {
+					item.totalValue = (parseFloat(priceUsd) * balance);
+				} else {
+					item.totalValue = 0;
+				}
+			} else {
+				item.totalValue = 0;
+			}
+			return item;
+		});
+
+		return _.sortBy(unsorted, ['totalValue']).reverse();
+	}
+
+	renderSummaryView(_summary) {
+		let summary = this.sortByPriceTotal(_summary);
 		const $summaryBalances = this.$summaryBalances;
 		$summaryBalances.empty();
 		if (summary.length > 0) {
