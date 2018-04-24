@@ -45,7 +45,7 @@ class   Api {
 	}
 
 	static getAddressDetails(name, address) {
-		let delay = Math.floor(Math.random() * 2001);
+		let delay = Math.floor(Math.random() * 3001);
 		return Rx.Observable.of(null)
 		.delay(delay)
 		.flatMap(() => {
