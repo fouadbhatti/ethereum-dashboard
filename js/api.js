@@ -44,8 +44,8 @@ class   Api {
 		return this.mapEthExplorerRes(name, address, res);
 	}
 
-	static getAddressDetails(name, address) {
-		let delay = Math.floor(Math.random() * 3001);
+	static getAddressDetails(name, address, index) {
+		let delay = index * 1000;
 		return Rx.Observable.of(null)
 		.delay(delay)
 		.flatMap(() => {

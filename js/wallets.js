@@ -12,8 +12,8 @@ class MyWallets {
 		return Rx.Observable.of(_wallets)
 				.filter(wallets => wallets.length >0)
 				.flatMap((wallets) => {
-					let queryAddressDetails$ = wallets.map((wallet) => {
-						return Api.getAddressDetails(wallet.name, wallet.address);
+					let queryAddressDetails$ = wallets.map((wallet, index) => {
+						return Api.getAddressDetails(wallet.name, wallet.address, index);
 					});
 					return Rx.Observable.forkJoin(queryAddressDetails$);
 				})
