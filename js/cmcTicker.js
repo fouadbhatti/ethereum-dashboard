@@ -40,6 +40,30 @@ class CmcTicker {
 			return Rx.Observable.of(null);
 		});
 		
-		return Rx.Observable.forkJoin([first100$, second100$, third100$, fourth100$, fifth100$]);
+		let sixth100$ = Utils.request({
+			method: 'GET',
+			url: `${Config.cmcTicker}&start=500`
+		})
+		.catch(e => {
+			return Rx.Observable.of(null);
+		});
+		
+		let seventh100$ = Utils.request({
+			method: 'GET',
+			url: `${Config.cmcTicker}&start=600`
+		})
+		.catch(e => {
+			return Rx.Observable.of(null);
+		});
+		
+		let eighth100$ = Utils.request({
+			method: 'GET',
+			url: `${Config.cmcTicker}&start=700`
+		})
+		.catch(e => {
+			return Rx.Observable.of(null);
+		});
+		
+		return Rx.Observable.forkJoin([first100$, second100$, third100$, fourth100$, fifth100$, sixth100$, seventh100$, eighth100$]);
 	}
 }
