@@ -30,8 +30,8 @@ class MyWallets {
 					let $wallets = Rx.Observable.of(wallets);
 					let $cmcTicker = CmcTicker.getTicker();
 					return Rx.Observable.zip($wallets, $cmcTicker, (wallets, ticker) => {
-						ticker = ticker.reduce((a, b.data) => {
-							return [...a, ...b];
+						ticker = ticker.reduce((a, { data }) => {
+							return [...a, ...data];
 						}, []);
 						return wallets.map(wallet => {
 								if (wallet && wallet.tokens) {
