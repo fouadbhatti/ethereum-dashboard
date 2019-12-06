@@ -192,7 +192,7 @@ class Core {
 						let logoUrl = `${Config.cmcIcons}${token.details.name}.png`;
 						let priceUsd = token.details.quote.USD.price
 						let percentageChange = token.details.quote.USD.percent_change_24h;
-						let color = percentageChange ? percentageChange.indexOf('-') >= 0 ? 'text-danger': 'text-success' : '';
+						let color = percentageChange ? percentageChange <= 0 ? 'text-danger': 'text-success' : '';
 
 						let total = "";
 						if (priceUsd) {
