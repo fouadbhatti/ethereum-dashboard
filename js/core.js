@@ -165,7 +165,7 @@ class Core {
 		let unsorted = list.map((item) => {
 			if (!!item.details) {
 				let balance = Utils.roundOff(item.balance, true);
-				let priceUsd = item.details.price_usd;
+				let priceUsd = item.details.quote.USD.price
 				if (priceUsd) {
 					item.totalValue = (parseFloat(priceUsd) * balance);
 				} else {
@@ -190,7 +190,7 @@ class Core {
 					let balance = Utils.roundOff(token.balance, true);
 					if (!!token.details) {
 						let logoUrl = `${Config.cmcIcons}${token.details.id}.png`;
-						let priceUsd = token.details.price_usd;
+						let priceUsd = token.details.quote.USD.price
 						let percentageChange = token.details.percent_change_24h;
 						let color = percentageChange ? percentageChange.indexOf('-') >= 0 ? 'text-danger': 'text-success' : '';
 
