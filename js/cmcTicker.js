@@ -2,7 +2,7 @@ class CmcTicker {
 	static getTicker() {
 		let first100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=0`,
+			url: `${Config.cmcTicker}&start=1`,
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
@@ -10,7 +10,7 @@ class CmcTicker {
 		
 		let second100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=100`
+			url: `${Config.cmcTicker}&start=101`
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
@@ -18,7 +18,7 @@ class CmcTicker {
 		
 		let third100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=200`
+			url: `${Config.cmcTicker}&start=201`
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
@@ -26,7 +26,7 @@ class CmcTicker {
 		
 		let fourth100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=300`
+			url: `${Config.cmcTicker}&start=301`
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
@@ -34,7 +34,7 @@ class CmcTicker {
 		
 		let fifth100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=400`
+			url: `${Config.cmcTicker}&start=401`
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
@@ -42,7 +42,7 @@ class CmcTicker {
 		
 		let sixth100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=500`
+			url: `${Config.cmcTicker}&start=501`
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
@@ -50,7 +50,7 @@ class CmcTicker {
 		
 		let seventh100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=600`
+			url: `${Config.cmcTicker}&start=601`
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
@@ -58,7 +58,7 @@ class CmcTicker {
 		
 		let eighth100$ = Utils.request({
 			method: 'GET',
-			url: `${Config.cmcTicker}&start=700`
+			url: `${Config.cmcTicker}&start=701`
 		})
 		.catch(e => {
 			return Rx.Observable.of(null);
