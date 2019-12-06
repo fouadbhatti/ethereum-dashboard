@@ -189,9 +189,9 @@ class Core {
 				if (token.balance >= 0.00001) {
 					let balance = Utils.roundOff(token.balance, true);
 					if (!!token.details) {
-						let logoUrl = `${Config.cmcIcons}${token.details.id}.png`;
+						let logoUrl = `${Config.cmcIcons}${token.details.name}.png`;
 						let priceUsd = token.details.quote.USD.price
-						let percentageChange = token.details.percent_change_24h;
+						let percentageChange = token.details.quote.USD.percent_change_24h;
 						let color = percentageChange ? percentageChange.indexOf('-') >= 0 ? 'text-danger': 'text-success' : '';
 
 						let total = "";
